@@ -1,8 +1,9 @@
 import streamlit as st
 from openai import OpenAI
 
-# --- STEP 1: INITIALIZE HUGGING FACE'S OFFICIAL CHAT API ---
-HF_TOKEN = "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".strip()
+# --- STEP 1: INITIALIZE HUGGING FACE'S OFFICIAL CHAT API VIA SECURE SECRETS ---
+# This pulls the key directly from the secure Streamlit Secrets vault you filled out earlier!
+HF_TOKEN = st.secrets["OPENAI_API_KEY"]
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",

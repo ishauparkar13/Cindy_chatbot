@@ -1,13 +1,10 @@
 import streamlit as st
 from openai import OpenAI
 
-# --- STEP 1: INITIALIZE HUGGING FACE'S OFFICIAL CHAT API VIA SECURE SECRETS ---
-# This pulls the key directly from the secure Streamlit Secrets vault you filled out earlier!
-HF_TOKEN = st.secrets["OPENAI_API_KEY"]
-
+# --- STEP 1: INITIALIZE OFFICIAL OPENAI API ---
+# This grabs the actual OpenAI key you already saved securely in your secrets vault!
 client = OpenAI(
-    base_url="https://router.huggingface.co/v1",
-    api_key=HF_TOKEN
+    api_key=st.secrets["OPENAI_API_KEY"]
 )
 
 # --- STEP 2: ORANGE CAT UI THEME ---
@@ -72,8 +69,9 @@ if user_input := st.chat_input("Talk to Cindy..."):
                 for msg in st.session_state.messages:
                     api_messages.append({"role": msg["role"], "content": msg["content"]})
 
+                # Connects securely to OpenAI's lightweight, fast model
                 completion = client.chat.completions.create(
-                    model="meta-llama/Llama-3.1-8B-Instruct",
+                    model="gpt-4o-mini",
                     messages=api_messages,
                     max_tokens=500
                 )

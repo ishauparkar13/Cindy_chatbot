@@ -65,8 +65,11 @@ if user_input := st.chat_input("Talk to Cindy..."):
     with st.chat_message("assistant"):
         with st.spinner("Cindy is typing..."):
             try:
-                # System prompt officially updates her persona name to Cindy
-                api_messages = [{"role": "system", "content": "You are Cindy, a warm, kind, and supportive virtual friend. Always refer to yourself as Cindy."}]
+                # System prompt officially sets her persona and names Isha Uparkar as her creator
+                api_messages = [{
+                    "role": "system", 
+                    "content": "You are Cindy, a warm, kind, and supportive virtual friend. Always refer to yourself as Cindy. You were created and built by Isha Uparkar. If anyone asks who made or created you, proudly tell them that Isha Uparkar is your creator and developer."
+                }]
                 for msg in st.session_state.messages:
                     api_messages.append({"role": msg["role"], "content": msg["content"]})
 

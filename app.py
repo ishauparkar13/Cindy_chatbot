@@ -1,9 +1,10 @@
 import streamlit as st
 from openai import OpenAI
 
-# --- STEP 1: INITIALIZE OFFICIAL OPENAI API ---
-# This grabs the actual OpenAI key you already saved securely in your secrets vault!
+# --- STEP 1: INITIALIZE FREE GROQ API (USING OPENAI CLIENT) ---
+# This points to Groq's servers so your gsk_ key is accepted perfectly!
 client = OpenAI(
+    base_url="https://api.groq.com/openai/v1",
     api_key=st.secrets["OPENAI_API_KEY"]
 )
 
@@ -69,9 +70,9 @@ if user_input := st.chat_input("Talk to Cindy..."):
                 for msg in st.session_state.messages:
                     api_messages.append({"role": msg["role"], "content": msg["content"]})
 
-                # Connects securely to OpenAI's lightweight, fast model
+                # Connects to Groq's lightning-fast free Llama model
                 completion = client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model="llama-3.1-8b-instant",
                     messages=api_messages,
                     max_tokens=500
                 )
